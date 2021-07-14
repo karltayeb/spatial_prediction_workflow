@@ -19,7 +19,7 @@ rule get_popres_data:
     run:
         source = '/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd'
         for i, o  in zip(input, output):
-            shell('mv {} {}'.format(i, o))
+            shell('cp {} {}'.format(i, o))
 
 
 rule prep_vcf:
