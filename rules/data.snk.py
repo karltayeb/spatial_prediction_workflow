@@ -77,7 +77,8 @@ rule split_coords:
 
         n = int(meta.shape[0] / 10)
         gen_mask = lambda: np.random.choice(meta.shape[0], n, replace=False)
-        [mask_meta(meta, gen_mask()).to_csv(output[i], sep='\t', index=None) for i in range(len(output))];
+        [mask_meta(meta, gen_mask()).to_csv(
+            output[i], sep='\t', index=None) for i in range(len(output))];
 
 
 
