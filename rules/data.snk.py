@@ -57,6 +57,24 @@ rule wolf_vcf:
     shell:
         "plink --bfile {params.d} --recode vcf --dog --out {params.d}"
 
+rule prep_coord:
+    """
+    just copy popres data to data repo
+    """
+    input: multiext('data/{prefix}', '.fam', '.coord')
+    output: temp('data/{prefix}.locator.coord')
+    run:
+        import pandas as pd
+        coord = pd.read_csv(input[1], index_col=False, header=None, sep='\s')
+        fam = pd.read_csv(input[0], index_col=False, header=None, sep='\s')
+        fam['sampleID']=fam.apply(lambda x:'%s_%s' % (x[0],x[1]),axis=1)
+        meta = pd.concat([coord, fam['sampleID']], axis=1).iloc[:, :4]
+        meta.columns = ['x', 'y', 'sampleID']
+        meta.to_csv(otuput[0], sep='\t', index=None)
+
+
+
+
 
 
 
