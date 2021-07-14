@@ -16,7 +16,7 @@ rule prep_coord:
         fam['sampleID']=fam.apply(lambda x:'%s_%s' % (x[0],x[1]),axis=1)
         meta = pd.concat([coord, fam['sampleID']], axis=1).iloc[:, :4]
         meta.columns = ['x', 'y', 'sampleID']
-        meta.to_csv(otuput[0], sep='\t', index=None)
+        meta.to_csv(output[0], sep='\t', index=None)
 
 rule run_locator:
     input:
