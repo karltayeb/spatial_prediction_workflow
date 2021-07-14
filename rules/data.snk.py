@@ -33,7 +33,7 @@ rule get_wolf_data:
         multiext('data/wolves/wolvesadmix', '.bed', '.bim', '.fam')
     conda:
         '../envs/feems.yaml'
-    run:
+    script:
         'scripts/fetch_wolf_data.py'
 
 rule prep_vcf:
