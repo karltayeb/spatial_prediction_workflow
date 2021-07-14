@@ -13,12 +13,13 @@ rule get_popres_data:
     just copy popres data to data repo
     """
     input:
-        multiext('/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd', '.bim', '.bam', '.fam')
+        multiext('/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd', '.bed', '.bim', '.fam')
     output:
-        multiext('data/popres/global/c1global1nfd', '.bim', '.bam', '.fam')
+        multiext('data/popres/global/c1global1nfd', '.bed', '.bim', '.fam')
     run:
         source = '/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd'
         for i, o  in zip(input, output):
+            print('copyin {} to {}'.format(i, o))
             shell('cp {} {}'.format(i, o))
 
 
