@@ -9,7 +9,7 @@ rule prep_coord:
     """
     input:
         'data/{prefix}.fam'
-        'data/{prefix}/splits/{split}.coord'
+        'data/{prefix}.{split}.coord'
     output: 'data/{prefix}.{split}.locator.coord'
     run:
         import pandas as pd
@@ -23,9 +23,9 @@ rule prep_coord:
 rule run_locator:
     input:
         vcf='data/{prefix}.vcf',
-        loc='data/{prefix}.locator.coord'
+        loc='data/{prefix}.{split}.locator.coord'
     output:
-        directory('output/{prefix}/locator')
+        directory('data/{prefix}/locator/splits/{split}')
     params:
         out = 'output/{prefix}/locator'
     conda:
