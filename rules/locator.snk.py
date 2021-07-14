@@ -1,7 +1,7 @@
 import pickle
 
-node2sample = pickle.load(open('/Users/karltayeb/Research/spatial_prediction/feems/feems/data/node2sample.pkl', 'rb'))
-observed_nodes = [k for k in node2sample if len(node2sample[k]) > 0]
+# node2sample = pickle.load(open('/Users/karltayeb/Research/spatial_prediction/feems/feems/data/node2sample.pkl', 'rb'))
+# observed_nodes = [k for k in node2sample if len(node2sample[k]) > 0]
 
 rule prep_coord:
     """
