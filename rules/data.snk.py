@@ -23,6 +23,23 @@ rule get_popres_data:
             shell('cp {} {}'.format(i, o))
 
 
+rule get_wolf_data:
+    """
+    just copy popres data to data repo
+    """
+    input:
+        multiext('/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd', '.bed', '.bim', '.fam')
+    output:
+        multiext('data/wolves/wolvesadmix', '.bed', '.bim', '.fam')
+    run:
+        import pkg_resources
+        data_path = pkg_resources.resource_filename("feems", "data/")
+
+        input = ['{}wolvesadmix.{}'.format(ext) for ext in ['bed', 'bim', 'fam']]
+        for i, o  in zip(input, output):
+            print('copying {} to {}'.format(i, o))
+            shell('cp {} {}'.format(i, o))
+
 rule prep_vcf:
     input:
         multiext("data/{prefix}", ".bed", ".bim", ".fam")
