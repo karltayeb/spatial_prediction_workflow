@@ -58,9 +58,27 @@ rule wolf_vcf:
         "plink --bfile {params.d} --recode vcf --dog --out {params.d}"
 
 
+rule split_coords:
+    input: 'data/{prefix}.coord'
+    output: expand('data/{prefix}/splits/{split}.coord', split=range(10), allow_missing=True)
+    run:
+        import numpy as np
+        import pandas as pd
+        from copy import deepcopy
 
+        np.random.seed(0)
+        meta = pd.read_csv(input[0], delim_whitespace=True, header=None)
 
+        print(meta.shape)
+        def mask_meta(meta, mask):
+            meta2 = deepcopy(meta)
+            meta2.iloc[mask, :2] = np.nan
+            return meta2
 
+        n = int(meta.shape[0] / 10)
+        gen_mask = lambda: np.random.choice(meta.shape[0], n, replace=False)
+        [mask_meta(meta, gen_mask()).to_csv(
+            output[i], sep='\t', index=None) for i in range(len(output))];
 
 
 

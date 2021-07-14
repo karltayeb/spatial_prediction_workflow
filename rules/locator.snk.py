@@ -7,8 +7,10 @@ rule prep_coord:
     """
     just copy popres data to data repo
     """
-    input: multiext('data/{prefix}', '.fam', '.coord')
-    output: 'data/{prefix}.locator.coord'
+    input:
+        'data/{prefix}.fam'
+        'data/{prefix}/splits/{split}.coord'
+    output: 'data/{prefix}.{split}.locator.coord'
     run:
         import pandas as pd
         coord = pd.read_csv(input[1], index_col=False, header=None, sep='\s')
