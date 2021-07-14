@@ -39,9 +39,9 @@ rule get_wolf_data:
     just copy popres data to data repo
     """
     input:
-        multiext('/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd', '.bed', '.bim', '.fam')
+        multiext('/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd', '.bed', '.bim', '.fam', '.coord')
     output:
-        multiext('data/wolves/wolvesadmix', '.bed', '.bim', '.fam')
+        multiext('data/wolves/wolvesadmix', '.bed', '.bim', '.fam', '.coord')
     conda:
         '../envs/feems.yaml'
     script:
