@@ -31,6 +31,8 @@ rule get_wolf_data:
         multiext('/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd', '.bed', '.bim', '.fam')
     output:
         multiext('data/wolves/wolvesadmix', '.bed', '.bim', '.fam')
+    conda:
+        '../envs/feems.yaml'
     run:
         import pkg_resources
         data_path = pkg_resources.resource_filename("feems", "data/")
