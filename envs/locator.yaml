@@ -1,0 +1,17 @@
+name: snk-locator
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.8.3    # or 2.7
+  - numpy
+  - tensorflow
+  - h5py
+  - scikit-allel
+  - matplotlib
+  - scipy
+  - tqdm
+  - pandas
+  - zarr
+  - seaborn
+
