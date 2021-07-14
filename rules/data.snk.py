@@ -14,7 +14,7 @@ rule prep_human_vcf:
     output:
         'data/popres/global/c1global1nfd.vcf'
     params:
-        sdir = '/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd'
+        sdir = '/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd',
         odir = 'data/popres/global/c1global1nfd'
     conda:
         '../envs/plink.yaml'
