@@ -34,7 +34,7 @@ rule get_wolf_data:
     conda:
         '../envs/feems.yaml'
     script:
-        'scripts/fetch_wolf_data.py'
+        '../scripts/fetch_wolf_data.py'
 
 rule prep_vcf:
     input:
