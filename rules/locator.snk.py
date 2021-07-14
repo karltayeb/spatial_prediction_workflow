@@ -25,7 +25,7 @@ rule run_locator:
         vcf='data/{prefix}.vcf',
         loc='data/{prefix}.{split}.locator.coord'
     output:
-        directory('data/{prefix}/locator/splits/{split}')
+        directory('output/{prefix}/locator/splits/{split}')
     params:
         out = 'output/{prefix}/locator'
     conda:
