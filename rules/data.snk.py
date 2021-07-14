@@ -15,13 +15,24 @@ rule get_popres_data:
     input:
         multiext('/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd', '.bed', '.bim', '.fam')
     output:
-        multiext('data/popres/global/c1global1nfd', '.bed', '.bim', '.fam')
+        multiext('data/popres/c1global1nfd', '.bed', '.bim', '.fam')
     run:
         source = '/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd'
         for i, o  in zip(input, output):
             print('copyin {} to {}'.format(i, o))
             shell('cp {} {}'.format(i, o))
 
+rule popres_vcf:
+    input:
+        multiext("data/popres/c1global1nfd", ".bed", ".bim", ".fam")
+    output:
+        'data/popres/c1global1nfd.vcf'
+    params:
+        d = 'data/popres/c1global1nfd'
+    conda:
+        '../envs/plink.yaml'
+    shell:
+        "plink --bfile {params.d} --recode vcf --out {params.d}"
 
 rule get_wolf_data:
     """
@@ -36,18 +47,17 @@ rule get_wolf_data:
     script:
         '../scripts/fetch_wolf_data.py'
 
-rule prep_vcf:
+rule wolf_vcf:
     input:
-        multiext("data/{prefix}", ".bed", ".bim", ".fam")
+        multiext("data/wolves/wolvesadmix", ".bed", ".bim", ".fam")
     output:
-        'data/{prefix}.vcf'
+        'data/wolves/wolvesadmix.vcf'
     params:
-        sdir = 'data/{prefix}',
-        odir = 'data/{prefix}'
+        d = 'data/wolves/wolvesadmix',
     conda:
         '../envs/plink.yaml'
     shell:
-        "plink --bfile {params.sdir} --recode vcf --out {params.odir}"
+        "plink --bfile {params.d} --recode vcf --out {params.d}"
 
 
 
