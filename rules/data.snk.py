@@ -34,13 +34,7 @@ rule get_wolf_data:
     conda:
         '../envs/feems.yaml'
     run:
-        import pkg_resources
-        data_path = pkg_resources.resource_filename("feems", "data/")
-
-        input = ['{}wolvesadmix.{}'.format(ext) for ext in ['bed', 'bim', 'fam']]
-        for i, o  in zip(input, output):
-            print('copying {} to {}'.format(i, o))
-            shell('cp {} {}'.format(i, o))
+        'scripts/fetch_wolf_data.py'
 
 rule prep_vcf:
     input:
