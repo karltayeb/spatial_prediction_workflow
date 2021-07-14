@@ -1,0 +1,5 @@
+name: snk-plink
+channels:
+  - bioconda
+dependencies:
+  - plink=1.90b4
