@@ -57,7 +57,7 @@ rule wolf_vcf:
     conda:
         '../envs/plink.yaml'
     shell:
-        "plink --bfile {params.d} --recode vcf --out {params.d}"
+        "plink --bfile {params.d} --recode vcf --dog --out {params.d}"
 
 
 
