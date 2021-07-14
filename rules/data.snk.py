@@ -8,14 +8,28 @@ rule download_ag:
         shell("gsutil -m rsync -r gs://vo_agam_release/v3/metadata/ output/ag3/metadata/")
 
 
-rule prep_human_vcf:
+rule get_popres_data:
+    """
+    just copy popres data to data repo
+    """
     input:
-        multiext("/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd", ".bed", ".bim", ".fam")
+        multiext('/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd', '.bim', '.bam', '.fam')
     output:
-        'data/popres/global/c1global1nfd.vcf'
+        multiext('data/popres/global/c1global1nfd', '.bim', '.bam', '.fam')
+    run:
+        source = '/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd'
+        for i, o  in zip(input, output):
+            shell('mv {} {}'.format(i, o))
+
+
+rule prep_vcf:
+    input:
+        multiext("data/{prefix}", ".bed", ".bim", ".fam")
+    output:
+        'data/{prefix}.vcf'
     params:
-        sdir = '/project2/jnovembre/old_project/bpeter/eems_tib/subset/c1global1nfd',
-        odir = 'data/popres/global/c1global1nfd'
+        sdir = 'data/{prefix}',
+        odir = 'data/{prefix}'
     conda:
         '../envs/plink.yaml'
     shell:

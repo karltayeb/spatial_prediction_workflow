@@ -13,8 +13,8 @@ rule locator_all:
 
 rule run_locator:
     input:
-        vcf='/Users/karltayeb/Research/spatial_prediction/locator/data/wolves/wolvesadmix.vcf',
-        loc='/Users/karltayeb/Research/spatial_prediction/locator/data/wolves/wolvesadmix_{node}.txt'
+        vcf='data/{prefix}.vcf',
+        loc='data/{prefix}.coord'
     output:
         directory('output/wolves/locator/wolvesadmix_{node}')
     params:
