@@ -30,7 +30,7 @@ rule run_locator:
         '../envs/locator.yaml'
     shell:
         "mkdir -p {params.out} \n"
-        "python config['locator_path'] --vcf {input.vcf} --sample_data {input.loc} --out {params.out}"
+        "python {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {params.out}"
 
 # rule locator_all:
 #     input:
