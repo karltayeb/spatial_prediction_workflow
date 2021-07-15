@@ -49,7 +49,7 @@ rule run_feems_split:
         'output/{prefix}/feems/splits/{split}.feems.pkl'
     conda:
         '../envs/feems.yaml'
-    shell:
+    script:
         "../scripts/feems_fit.py"
 
 
