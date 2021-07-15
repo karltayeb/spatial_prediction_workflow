@@ -8,7 +8,7 @@ rule prep_coord:
     just copy popres data to data repo
     """
     input:
-        'data/{prefix}.fam'
+        'data/{prefix}.fam',
         'data/{prefix}_splits/{split}.coord'
     output: 'data/{prefix}_splits/{split}.locator.coord'
 
@@ -31,8 +31,6 @@ rule run_locator:
         out = 'output/{prefix}/locator/splits/{split}'
     conda:
         '../envs/locator.yaml'
-    wildcard_constraints:
-        prefix='[^.]+'
     shell:
         "mkdir -p {params.out} \n"
         "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {params.out}"
