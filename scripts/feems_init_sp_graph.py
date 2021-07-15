@@ -2,6 +2,8 @@ import numpy as np
 from sklearn.impute import SimpleImputer
 from pandas_plink import read_plink
 import pickle
+from feems.utils import prepare_graph_inputs
+from feems import SpatialGraph
 
 
 data_path = snakemake.params.data_path
