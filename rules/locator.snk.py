@@ -38,4 +38,6 @@ rule run_locator:
 
 rule run_locator_all:
     input:
-        expand('output/wolves/wolvesadmix/locator/splits/{split}', split=range(10))
+        expand('output/wolves/wolvesadmix/locator/splits/{split}', split=range(10)),
+        expand('output/popres/c1global1nfd/locator/splits/{split}', split=range(10))
+
