@@ -18,4 +18,4 @@ results = predict_held_out_nodes(
         predict_type=snakemake.wildcards.predict,
         fit_feems = fit
     )
-pickle.dump(snakemake.output[0], 'wb')
+pickle.dump(open(snakemake.output[0], 'wb'))
