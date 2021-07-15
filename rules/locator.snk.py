@@ -9,8 +9,8 @@ rule prep_coord:
     """
     input:
         'data/{prefix}.fam'
-        'data/{prefix}.{split}.coord'
-    output: 'data/{prefix}.{split}.locator.coord'
+        'data/{prefix}_splits/{split}.coord'
+    output: 'data/{prefix}_splits/{split}.locator.coord'
     run:
         import pandas as pd
         coord = pd.read_csv(input[1], index_col=False, header=None, sep='\s')
@@ -23,7 +23,7 @@ rule prep_coord:
 rule run_locator:
     input:
         vcf='data/{prefix}.vcf',
-        loc='data/{prefix}.{split}.locator.coord'
+        loc='data/{prefix}_splits/{split}.locator.coord'
     output:
         directory('output/{prefix}/locator/splits/{split}')
     params:
