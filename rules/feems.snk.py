@@ -37,7 +37,7 @@ rule feems_split_nodes:
         nsplits = lambda wildcards, output: len(output)
     conda:
         '../envs/feems.yaml'
-    shell:
+    script:
         "../scripts/feems_split_nodes.py"
 
 
