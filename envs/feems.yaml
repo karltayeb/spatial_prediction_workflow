@@ -30,5 +30,5 @@ dependencies:
   - nbsphinx=0.7.1
   - sphinx-autodoc-typehints
   - pip:
-    - -e /Users/karltayeb/Research/spatial_prediction/feems
+    - -e /project2/jnovembre/ktayeb/spatial_prediction/feems 
     #- "--editable=git+https://github.com/karltayeb/feems#egg=feems"
