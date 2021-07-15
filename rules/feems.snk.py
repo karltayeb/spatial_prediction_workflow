@@ -47,7 +47,7 @@ rule run_feems:
 
 rule feems_initialize_graph:
     input:
-        expand('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer')
+        multiext('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer')
     output:
         'output/{prefix}/feems/init_sp_graph.pkl'
     params:
