@@ -28,7 +28,7 @@ rule run_locator:
     output:
         directory('output/{prefix}/locator/splits/{split}')
     params:
-        out = 'output/{prefix}/locator'
+        out = 'output/{prefix}/locator/splits/{split}'
     conda:
         '../envs/locator.yaml'
     wildcard_constraints:
