@@ -31,13 +31,14 @@ rule feems_split_nodes:
         sp_graph='output/{prefix}/feems/init_sp_graph.pkl',
         coord='data/{prefix}.coord'
     output:
-        expand('output/{prefix}/node_splits/{split}.coord', split=range(10), allow_missing=True)
+        expand('output/{prefix}/node_splits/{split}.coord',
+            split=range(10), allow_missing=True)
     params:
         nsplits = lambda wildcards, output: len(output)
     conda:
         '../envs/feems.yaml'
     shell:
-        "../scripts/feems_split_coord.py"
+        "../scripts/feems_split_nodes.py"
 
 
 rule run_feems_split:
