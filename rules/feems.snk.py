@@ -22,6 +22,24 @@ rule feems_initialize_graph:
     script:
         '../scripts/feems_init_sp_graph.py'
 
+
+rule feems_split_nodes:
+    """
+    create coord files that do not have locations for samples from same node
+    """
+    input:
+        sp_graph='output/{prefix}/feems/init_sp_graph.pkl',
+        coord='data/{prefix}.coord'
+    output:
+        expand('output/{prefix}/feems/splits/{split}.feems.pkl', split=range(10), allow_missing=True)
+    params:
+        nsplits = length(output)
+    conda:
+        '../envs/feems.yaml'
+    shell:
+        "../scripts feems_split_coord.py"
+
+
 rule run_feems_split:
     input:
         sp_graph='output/{prefix}/feems/init_sp_graph.pkl',
