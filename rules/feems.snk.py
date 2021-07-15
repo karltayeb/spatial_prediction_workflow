@@ -49,7 +49,7 @@ rule run_feems_generate_graph:
     input:
         expand('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer'),
         grid_path = 'data/grids/grid_100.shp'
-    output: 'output/{prefix}/feems/init_sp_graph.pkl'
+    output: 'output/{prefix}/init_sp_graph.pkl'
     script:
         '../scripts/feems_init_sp_graph.py'
 
