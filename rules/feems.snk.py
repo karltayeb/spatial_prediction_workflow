@@ -48,6 +48,7 @@ rule run_feems:
 rule feems_initialize_graph:
     input:
         multiext('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer')
+        grid_path = 'data/grids/grid_100.shp'
     output:
         'output/{prefix}/feems/init_sp_graph.pkl'
     params:
@@ -55,7 +56,7 @@ rule feems_initialize_graph:
     conda:
         '../envs/feems.yaml'
     script:
-        '../scripts/feems_init_sp_graph.py'
+        '../scripts/feemsinit_sp_graph.py'
 
 rule run_feems_split:
     input:
