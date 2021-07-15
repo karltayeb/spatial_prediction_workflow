@@ -8,7 +8,7 @@ from feems import SpatialGraph
 
 data_path = snakemake.params.data_path
 # read the genotype data and mean impute missing data
-(bim, fam, G) = read_plink(snakemake.params.data_path)
+(bim, fam, G) = read_plink(data_path)
 imp = SimpleImputer(missing_values=np.nan, strategy="mean")
 genotypes = imp.fit_transform((np.array(G)).T)
 
@@ -24,7 +24,7 @@ grid_path = snakemake.input.grid_path  # path to discrete global grid
 print('preparing graph inputs...')
 outer, edges, grid, _ = prepare_graph_inputs(coord=coord, 
                                              ggrid=grid_path,
-                                             translated=True, 
+                                             translated=snakemake.params.translated, 
                                              buffer=0,
                                              outer=outer)
 

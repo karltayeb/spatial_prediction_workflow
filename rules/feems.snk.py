@@ -3,8 +3,10 @@ def extract_dataset(wildcards):
     print(ds)
     return ds
 
+
 def get_translated(wildcards):
     return config['translated'][extract_dataset(wildcards)]
+
 
 rule feems_initialize_graph:
     input:
@@ -13,7 +15,7 @@ rule feems_initialize_graph:
     output:
         'output/{prefix}/feems/init_sp_graph.pkl'
     params:
-        data_path = 'data/{prefix}'
+        data_path = 'data/{prefix}',
         translated = get_translated
     conda:
         '../envs/feems.yaml'
