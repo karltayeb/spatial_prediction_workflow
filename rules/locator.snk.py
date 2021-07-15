@@ -42,9 +42,8 @@ rule prep_coord_node_split:
     """
     input:
         'data/{prefix}.fam',
-        'output/{prefix}/node_splits/{split}.coord'
+        'output/{prefix}/node_splits/{split}.coord',
     output: 'output/{prefix}/node_splits/{split}.coord.locator'
-
     run:
         import pandas as pd
         coord = pd.read_csv(input[1], index_col=False, header=None, sep='\s')
@@ -73,5 +72,5 @@ rule run_locator_all:
     input:
         expand('output/wolves/wolvesadmix/locator/splits/{split}', split=range(10)),
         expand('output/popres/c1global1nfd/locator/splits/{split}', split=range(10))
-        
+
 
