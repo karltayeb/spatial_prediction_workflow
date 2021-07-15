@@ -37,7 +37,7 @@ rule feems_split_nodes:
         nsplits = lambda wildcards, output: len(output)
     conda:
         '../envs/feems.yaml'
-    shell:
+    script:
         "../scripts/feems_split_nodes.py"
 
 
@@ -49,7 +49,7 @@ rule run_feems_split:
         'output/{prefix}/feems/splits/{split}.feems.pkl'
     conda:
         '../envs/feems.yaml'
-    shell:
+    script:
         "../scripts/feems_fit.py"
 
 

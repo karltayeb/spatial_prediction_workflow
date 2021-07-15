@@ -2,6 +2,7 @@ import pickle
 from feems.spatial_graph import query_node_attributes
 from copy import deepcopy
 import pandas as pd
+import numpy as np
 
 def mask_meta(meta, mask):
     meta2 = deepcopy(meta)
