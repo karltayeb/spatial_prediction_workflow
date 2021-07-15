@@ -37,7 +37,7 @@ rule feems_split_nodes:
     conda:
         '../envs/feems.yaml'
     shell:
-        "../scripts feems_split_coord.py"
+        "../scripts/feems_split_coord.py"
 
 
 rule run_feems_split:
@@ -49,7 +49,7 @@ rule run_feems_split:
     conda:
         '../envs/feems.yaml'
     shell:
-        "../scripts feems_fit.py"
+        "../scripts/feems_fit.py"
 
 
 rule prepare_feems:
