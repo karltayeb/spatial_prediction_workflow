@@ -42,7 +42,7 @@ rule prep_coord_node_split:
     """
     input:
         'data/{prefix}.fam',
-        'output/{prefix}/node_splits/{split}.coord',
+        'output/{prefix}/node_splits/{split}.coord'
     output: 'output/{prefix}/node_splits/{split}.coord.locator'
     run:
         import pandas as pd
