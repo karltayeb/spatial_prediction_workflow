@@ -31,7 +31,7 @@ rule feems_split_nodes:
         sp_graph='output/{prefix}/feems/init_sp_graph.pkl',
         coord='data/{prefix}.coord'
     output:
-        expand('output/{prefix}/feems/splits/{split}.feems.pkl', split=range(10), allow_missing=True)
+        expand('output/{prefix}/node_splits/{split}.coord', split=range(10), allow_missing=True)
     params:
         nsplits = length(output)
     conda:
