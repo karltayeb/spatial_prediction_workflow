@@ -51,7 +51,7 @@ rule wolf_vcf:
     output:
         'data/wolves/wolvesadmix.vcf'
     params:
-        d = 'data/wolves/wolvesadmix',
+        d = 'data/wolves/wolvesadmix'
     conda:
         '../envs/plink.yaml'
     shell:

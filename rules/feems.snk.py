@@ -44,3 +44,22 @@ rule run_feems:
         '../envs/feems.yaml'
     script:
         "../scripts/feems_lno.py"
+
+rule run_feems_generate_graph:
+    input:
+        expand('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer'),
+        grid_path = 'data/grids/grid_100.shp'
+    output: 'output/{prefix}/feems/init_sp_graph.pkl'
+    script:
+        '../scripts/feems_init_sp_graph.py'
+
+rule run_feems_split:
+    input:
+        sp_graph='output/{prefix}/feems/init_sp_graph.pkl',
+        coord='data/{prefix}_splits/{split}.locator.coord'
+    output:
+        'output/{prefix}/feems/splits/{split}.feems.pkl'
+    conda:
+        '../envs/locator.yaml'
+    shell:
+        "echo 1"
