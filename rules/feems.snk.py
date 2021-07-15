@@ -56,7 +56,7 @@ rule feems_initialize_graph:
     conda:
         '../envs/feems.yaml'
     script:
-        '../scripts/feemsinit_sp_graph.py'
+        '../scripts/feems_init_sp_graph.py'
 
 rule run_feems_split:
     input:
