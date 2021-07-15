@@ -41,7 +41,7 @@ rule feems_split_nodes:
         "../scripts/feems_split_nodes.py"
 
 
-rule run_feems_split:
+rule feems_run_split_nodes:
     input:
         sp_graph='output/{prefix}/feems/init_sp_graph.pkl',
         coord='data/{prefix}_splits/{split}.locator.coord'
