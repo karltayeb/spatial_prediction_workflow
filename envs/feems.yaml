@@ -3,8 +3,8 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - pip
   - python=3.8.3
+  - pip
   - numpy=1.19.5
   - scipy=1.5.0
   - scikit-learn=0.23.1
