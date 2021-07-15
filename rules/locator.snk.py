@@ -35,6 +35,11 @@ rule run_locator:
         "mkdir -p {params.out} \n"
         "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {params.out}"
 
+
+rule run_locator_all:
+    input:
+        expand('output/wolves/wolvesadmix/locator/splits/{split}', split=range(10))
+
 # rule locator_all:
 #     input:
 #         expand('output/wolves/locator/wolvesadmix_{node}/locator_predlocs.txt', node=observed_nodes)
