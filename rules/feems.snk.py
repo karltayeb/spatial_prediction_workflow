@@ -3,11 +3,11 @@ rule prepare_feems:
     prepare inputs for feems
     """
     input:
-        multiext('data/wolves/wolvesadmix', 'bed', 'bim', 'fam', 'coord'),
+        multiext('data/{prefix}', 'bed', 'bim', 'fam', 'coord'),
     output:
         'output/wolves/feems/prep.pkl'
     params:
-        prefix = 'data/wolves/wolvesadmix'
+        prefix = 'data/{prefix}'
     output:
         'output/wolves/feems/prep.pkl'
     run:
@@ -45,13 +45,13 @@ rule run_feems:
     script:
         "../scripts/feems_lno.py"
 
-rule run_feems_generate_graph:
+rule feems_initialize_graph:
     input:
-        expand('data/wolves/wolvesadmix', '.bed', '.bim', '.fam', '.coord', '.outer')
+        expand('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer')
     output:
-        'output/wolves/wolvesadmix/feems/init_sp_graph.pkl'
+        'output/{prefix}/feems/init_sp_graph.pkl'
     params:
-        data_path = 'data/wolves/wolvesadmix'
+        data_path = 'data/{prefix}'
     conda:
         '../envs/feems.yaml'
     script:
