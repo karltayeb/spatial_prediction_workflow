@@ -33,7 +33,7 @@ rule feems_split_nodes:
     output:
         expand('output/{prefix}/node_splits/{split}.coord', split=range(10), allow_missing=True)
     params:
-        nsplits = length(output)
+        nsplits = len(output)
     conda:
         '../envs/feems.yaml'
     shell:
