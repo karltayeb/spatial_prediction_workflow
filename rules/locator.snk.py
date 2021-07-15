@@ -11,6 +11,7 @@ rule prep_coord:
         'data/{prefix}.fam'
         'data/{prefix}_splits/{split}.coord'
     output: 'data/{prefix}_splits/{split}.locator.coord'
+
     run:
         import pandas as pd
         coord = pd.read_csv(input[1], index_col=False, header=None, sep='\s')
@@ -30,6 +31,8 @@ rule run_locator:
         out = 'output/{prefix}/locator'
     conda:
         '../envs/locator.yaml'
+    wildcard_constraints:
+        prefix='[^.]+'
     shell:
         "mkdir -p {params.out} \n"
         "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {params.out}"
