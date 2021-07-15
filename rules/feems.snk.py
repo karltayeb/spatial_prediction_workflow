@@ -47,11 +47,11 @@ rule run_feems:
 
 rule run_feems_generate_graph:
     input:
-        expand('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer')
+        expand('data/wolves/wolvesadmix', '.bed', '.bim', '.fam', '.coord', '.outer')
     output:
-        'output/{prefix}/init_sp_graph.pkl'
+        'output/wolves/wolvesadmix/feems/init_sp_graph.pkl'
     params:
-        data_path = 'data/{prefix}'
+        data_path = 'data/wolves/wolvesadmix'
     conda:
         '../envs/feems.yaml'
     script:
