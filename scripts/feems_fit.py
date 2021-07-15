@@ -10,7 +10,7 @@ else:
     assert(False)
 
 sp_graph = pickle.load(open(snakemake.input.sp_graph, 'rb'))
-coord = pickle.load(open(snakemake.input.coord, 'rb'))
+coord = pd.read_csv(snakemake.input.coord, sep='\t', header=None)
 
 results = predict_held_out_nodes(
         sp_graph, coord,
