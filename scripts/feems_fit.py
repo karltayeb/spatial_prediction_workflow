@@ -1,5 +1,6 @@
 import pickle
 from feems.spatial_prediction import predict_held_out_nodes
+import pandas as pd
 
 # check valid fit wildcard
 if snakemake.wildcards.fit == 'ibd':
