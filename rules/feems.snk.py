@@ -1,3 +1,37 @@
+def extract_dataset(wildcards):
+    ds = wildcards.prefix.split('/')[0]
+    print(ds)
+    return ds
+
+def get_translated(wildcards):
+    return config['translated'][extract_dataset(wildcards)]
+
+rule feems_initialize_graph:
+    input:
+        multiext('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer'),
+        grid_path = 'data/grids/grid_100.shp'
+    output:
+        'output/{prefix}/feems/init_sp_graph.pkl'
+    params:
+        data_path = 'data/{prefix}'
+        translated = get_translated
+    conda:
+        '../envs/feems.yaml'
+    script:
+        '../scripts/feems_init_sp_graph.py'
+
+rule run_feems_split:
+    input:
+        sp_graph='output/{prefix}/feems/init_sp_graph.pkl',
+        coord='data/{prefix}_splits/{split}.locator.coord'
+    output:
+        'output/{prefix}/feems/splits/{split}.feems.pkl'
+    conda:
+        '../envs/feems.yaml'
+    shell:
+        "../scripts feems_fit.py"
+
+
 rule prepare_feems:
     """
     prepare inputs for feems
@@ -45,26 +79,4 @@ rule run_feems:
     script:
         "../scripts/feems_lno.py"
 
-rule feems_initialize_graph:
-    input:
-        multiext('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer'),
-        grid_path = 'data/grids/grid_100.shp'
-    output:
-        'output/{prefix}/feems/init_sp_graph.pkl'
-    params:
-        data_path = 'data/{prefix}'
-    conda:
-        '../envs/feems.yaml'
-    script:
-        '../scripts/feems_init_sp_graph.py'
 
-rule run_feems_split:
-    input:
-        sp_graph='output/{prefix}/feems/init_sp_graph.pkl',
-        coord='data/{prefix}_splits/{split}.locator.coord'
-    output:
-        'output/{prefix}/feems/splits/{split}.feems.pkl'
-    conda:
-        '../envs/feems.yaml'
-    shell:
-        "echo 1"

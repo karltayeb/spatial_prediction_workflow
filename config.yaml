@@ -1,1 +1,4 @@
 locator_path: '../locator/scripts/locator.py'
+translated:
+    wolves: True
+    popres: False
