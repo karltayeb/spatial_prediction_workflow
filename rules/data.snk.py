@@ -61,6 +61,8 @@ rule wolf_vcf:
 rule split_coords:
     input: 'data/{prefix}.coord'
     output: expand('data/{prefix}_splits/{split}.coord', split=range(10), allow_missing=True)
+    wildcard_constraints:
+        prefix='[^.]+'
     run:
         import numpy as np
         import pandas as pd
