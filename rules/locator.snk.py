@@ -60,7 +60,7 @@ rule run_locator_node_split:
     output:
         directory('output/{prefix}/locator/node_splits/{split}')
     params:
-        out = 'output/{prefix}/locator/splits/{split}'
+        out = 'output/{prefix}/locator/node_splits/{split}'
     conda:
         '../envs/locator.yaml'
     shell:
