@@ -47,9 +47,13 @@ rule run_feems:
 
 rule run_feems_generate_graph:
     input:
-        expand('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer'),
-        grid_path = 'data/grids/grid_100.shp'
-    output: 'output/{prefix}/init_sp_graph.pkl'
+        expand('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer')
+    output:
+        'output/{prefix}/init_sp_graph.pkl'
+    params:
+        data_path = 'data/{prefix}'
+    conda:
+        '../envs/feems.yaml'
     script:
         '../scripts/feems_init_sp_graph.py'
 
@@ -60,6 +64,6 @@ rule run_feems_split:
     output:
         'output/{prefix}/feems/splits/{split}.feems.pkl'
     conda:
-        '../envs/locator.yaml'
+        '../envs/feems.yaml'
     shell:
         "echo 1"
