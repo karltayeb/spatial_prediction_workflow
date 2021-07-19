@@ -19,6 +19,8 @@ rule feems_initialize_graph:
         translated = get_translated
     conda:
         '../envs/feems.yaml'
+    resources:
+        ntasks_per_node=4
     script:
         '../scripts/feems_init_sp_graph.py'
 
