@@ -8,12 +8,14 @@ from feems import SpatialGraph
 
 data_path = snakemake.params.data_path
 # read the genotype data and mean impute missing data
+print('reading data...')
 (bim, fam, G) = read_plink(data_path)
+
+print('imputing genotypes...')
 imp = SimpleImputer(missing_values=np.nan, strategy="mean")
 genotypes = imp.fit_transform((np.array(G)).T)
 
 print("n_samples={}, n_snps={}".format(genotypes.shape[0], genotypes.shape[1]))
-
 
 # setup graph
 coord = np.loadtxt("{}.coord".format(data_path))  # sample coordinates
