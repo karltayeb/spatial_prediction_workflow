@@ -46,7 +46,7 @@ rule feems_run_split_nodes:
         sp_graph='output/{prefix}/feems/sp_graph_grid_{gridsize}.pkl',
         coord='output/{prefix}/node_splits/grid_{gridsize}_split_{split}.coord'
     output:
-        'output/{prefix}/feems/node_splits/feems_{fit}_{predict}_grid_{gridsize}_split_{split}.feems.pkl'
+        'output/{prefix}/feems/node_splits/feems_{fit}_{predict}_grid_{gridsize}_split_{split}.pkl'
     conda:
         '../envs/feems.yaml'
     script:
