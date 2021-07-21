@@ -36,7 +36,7 @@ rule run_locator_leave_node_out:
         vcf='data/{prefix}.vcf',
         loc='output/{prefix}/locator/grid_{gridsize}/leave_node_out/coord/{id}.coord'
     output:
-        directory('output/{prefix}/locator/grid_{gridsize}/leave_node_out/coord/{id}')
+        directory('output/{prefix}/locator/grid_{gridsize}/leave_node_out/{id}')
     params:
         out = 'output/{prefix}/locator/splits/{split}'
     conda:
