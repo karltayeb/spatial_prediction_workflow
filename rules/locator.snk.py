@@ -31,12 +31,15 @@ rule prep_coord_for_locator:
             meta.columns = ['x', 'y', 'sampleID']
             meta.to_csv(p_out, sep='\t', index=None)
 
+
 rule run_locator_leave_node_out:
     input:
         vcf='data/{prefix}.vcf',
         loc='output/{prefix}/locator/grid_{gridsize}/leave_node_out/coord/{id}.coord'
     output:
         'output/{prefix}/locator/grid_{gridsize}/leave_node_out/{id}/{id}_weights.hdf5'
+    params:
+        outpath = lambda wildcard, output: output[0][:-len('_weights.hdf5')]
     conda:
         '../envs/locator_gpu.yaml'
     resources:
@@ -44,9 +47,9 @@ rule run_locator_leave_node_out:
         gres='gpu:1',
         ntasks=1
     shell:
-        "module load cuda/10.1"
-        "mkdir -p {output[0]} \n"
-        "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {output[0]}"
+        "module load cuda/10.1 \n"
+        #"mkdir -p {output[0]} \n"
+        "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {params.outpath}"
 
 
 rule prep_coord_node_split:
