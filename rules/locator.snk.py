@@ -39,6 +39,8 @@ rule run_locator_leave_node_out:
         directory('output/{prefix}/locator/grid_{gridsize}/leave_node_out/{id}')
     conda:
         '../envs/locator_gpu.yaml'
+    resources:
+        partition='gpu2'
     shell:
         "module load cuda/10.1"
         "mkdir -p {output[0]} \n"
