@@ -56,7 +56,7 @@ rule run_locator_leave_node_out:
 
 rule run_locator_popres_250:
     input:
-        expand('output/popres/c1global1nfd/locator/grid_250/leave_node_out/fit/{id}_predlocs.txt', id=range(297))
+        expand('output/popres/c1global1nfd/locator/grid_250/leave_node_out/fit/{id}_predlocs.txt', id=[str(i).zfill(3) for i in range(297)])
 
 rule prep_coord_node_split:
     """
