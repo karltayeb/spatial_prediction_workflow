@@ -37,7 +37,7 @@ rule run_locator_leave_node_out:
         vcf='data/{prefix}.vcf',
         loc='output/{prefix}/locator/grid_{gridsize}/leave_node_out/coord/{id}.coord'
     output:
-        'output/{prefix}/locator/grid_{gridsize}/leave_node_out/{id}/{id}_predlocs.txt'
+        'output/{prefix}/locator/grid_{gridsize}/leave_node_out/fit/{id}_predlocs.txt'
     params:
         outpath = lambda wildcard, output: output[0][:-len('_weights.hdf5')]
     conda:
@@ -49,7 +49,7 @@ rule run_locator_leave_node_out:
     shell:
         "module load cuda/10.1 \n"
         #"mkdir -p {output[0]} \n"
-        "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {params.outpath}"
+        "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {params.outpath} --keep_weights"
 
 
 rule prep_coord_node_split:
