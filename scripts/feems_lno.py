@@ -5,7 +5,7 @@ import pandas as pd
 from tqdm import tqdm
 
 
-paths = glob(snakemake.input.coord_dir)
+paths = glob(snakemake.input.coord_dir + '/*')
 
 print('Leave one node out feems...')
 
