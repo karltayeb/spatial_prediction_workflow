@@ -37,8 +37,6 @@ rule run_locator_leave_node_out:
         loc='output/{prefix}/locator/grid_{gridsize}/leave_node_out/coord/{id}.coord'
     output:
         directory('output/{prefix}/locator/grid_{gridsize}/leave_node_out/{id}')
-    params:
-        out = 'output/{prefix}/locator/splits/{split}'
     conda:
         '../envs/locator_gpu.yaml'
     shell:
