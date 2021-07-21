@@ -3,8 +3,10 @@ from feems.spatial_prediction import predict_held_out_nodes
 from glob import glob
 import pandas as pd
 from tqdm import tqdm
+import os
 
 
+os.makedirs(snakemake.output[0], exist_ok=True)
 paths = glob(snakemake.input.coord_dir + '/*')
 
 print('Leave one node out feems...')
