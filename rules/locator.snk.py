@@ -9,8 +9,8 @@ rule prep_coord_for_locator:
     reformat coords for locator
     """
     input:
-        'data/{prefix}.fam',
-        directory('output/{prefix}/feems/grid_{gridsize}/leave_node_out/coord')
+        fam='data/{prefix}.fam',
+        coord_dir=directory('output/{prefix}/feems/grid_{gridsize}/leave_node_out/coord')
     output:
         directory('output/{prefix}/locator/grid_{gridsize}/leave_node_out/coord/')
     run:
@@ -39,7 +39,7 @@ rule run_locator:
     params:
         out = 'output/{prefix}/locator/splits/{split}'
     conda:
-        '../envs/locator.yaml'
+        '../envs/locator_gpu.yaml'
     shell:
         "mkdir -p {params.out} \n"
         "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {params.out}"
