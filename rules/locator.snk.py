@@ -17,6 +17,7 @@ rule prep_coord_for_locator:
         import pandas as pd
         import os
         from glob import glob
+        import tqdm
 
         os.makedirs(output[0], exist_ok=True)
         paths = glob(input.coord_dir + '/*')
@@ -30,19 +31,19 @@ rule prep_coord_for_locator:
             meta.columns = ['x', 'y', 'sampleID']
             meta.to_csv(p_out, sep='\t', index=None)
 
-rule run_locator:
+rule run_locator_leave_node_out:
     input:
         vcf='data/{prefix}.vcf',
-        loc_dir=directory('output/{prefix}/locator/grid_{gridsize}/leave_node_out/coord/')
+        loc='output/{prefix}/locator/grid_{gridsize}/leave_node_out/coord/{id}.coord'
     output:
-        directory('output/{prefix}/locator/splits/{split}')
+        directory('output/{prefix}/locator/grid_{gridsize}/leave_node_out/coord/{id}')
     params:
         out = 'output/{prefix}/locator/splits/{split}'
     conda:
         '../envs/locator_gpu.yaml'
     shell:
-        "mkdir -p {params.out} \n"
-        "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {params.out}"
+        "mkdir -p {output[0]} \n"
+        "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {output[0]}"
 
 
 rule prep_coord_node_split:
