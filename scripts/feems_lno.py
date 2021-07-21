@@ -1,5 +1,5 @@
 import pickle
-from feems.spatial_prediction import leave_node_out_spatial_prediction
+from feems.spatial_prediction import predict_held_out_nodes
 from glob import glob
 import pandas as pd
 from tqdm import tqdm
