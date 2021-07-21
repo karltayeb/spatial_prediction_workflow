@@ -1,5 +1,9 @@
 import pickle
 from feems.spatial_prediction import leave_node_out_spatial_prediction
+from glob import glob
+
+
+paths = glob(snakemake.input.coord_dir)
 
 print('Leave one node out feems...')
 
@@ -11,10 +15,16 @@ elif snakemake.wildcards.fit == 'feems':
 else:
     assert(False)
 
-sp_graph = pickle.load(open(snakemake.input[0], 'rb'))
-result = leave_node_out_spatial_prediction(
-    sp_graph,
-    predict_type=snakemake.wildcards.predict,
-    fit_feems = fit
-)
-pickle.dump(result, open(snakemake.output[0], 'wb'))
+for p in paths:
+    sp_graph = pickle.load(open(snakemake.input.sp_graph, 'rb'))
+    coord = pd.read_csv(p, sep='\t', header=None)
+
+    results = predict_held_out_nodes(
+            sp_graph, coord,
+            predict_type=snakemake.wildcards.predict,
+            fit_feems = fit
+        )
+
+    split_id = p.split('/')[-1].split('.')[0]
+    save_path = '{}/{}.fit.pkl'.format(snakemake.output[0], split_id)
+    pickle.dump(results, open(save_path, 'wb'))
