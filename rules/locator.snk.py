@@ -39,7 +39,7 @@ rule run_locator_leave_node_out:
     output:
         'output/{prefix}/locator/grid_{gridsize}/leave_node_out/fit/{id}_predlocs.txt'
     params:
-        outpath = lambda wildcard, output: output[0][:-len('_weights.hdf5')]
+        outpath = lambda wildcard, output: output[0][:-len('_predlocs.txt')]
     conda:
         '../envs/locator_gpu.yaml'
     resources:
