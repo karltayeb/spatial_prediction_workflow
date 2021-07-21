@@ -48,7 +48,7 @@ rule feems_leave_node_out:
         sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl',
         coord='data/{prefix}.coord'
     output:
-        directory('output/{prefix}/grid_{gridsize}/leave_node_out')
+        directory('output/{prefix}/feems/grid_{gridsize}/leave_node_out')
     params:
         nsplits = 1e6
     conda:
