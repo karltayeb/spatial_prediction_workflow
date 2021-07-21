@@ -52,7 +52,7 @@ rule feems_leave_node_out_fit:
 
 rule run_feems_popres_250:
     input:
-        expand('output/popres/c1global1nfd/feems/grid_250/leave_node_out/{fit}_{predict}_{reg}/{id}_predlocs.txt', id=[str(i).zfill(3) for i in range(297)], allow_missing=True)
+        expand('output/popres/c1global1nfd/feems/grid_250/leave_node_out/ibd_point_noreg/{id}_predlocs.txt', id=[str(i).zfill(3) for i in range(297)])
 
 # rule run_feems:
 #     input:
