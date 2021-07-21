@@ -44,7 +44,7 @@ rule run_locator_leave_node_out:
         gres='gpu:1',
         ntasks=1
     shell:
-        "module load cuda/10.1"
+        "module load cuda/10.1 \n"
         "mkdir -p {output[0]} \n"
         "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {output[0]}"
 
