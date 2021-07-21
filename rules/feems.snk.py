@@ -22,25 +22,7 @@ rule feems_initialize_graph:
     script:
         '../scripts/feems_init_sp_graph.py'
 
-
-rule feems_split_nodes:
-    """
-    create coord files that do not have locations for samples from same node
-    """
-    input:
-        sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl',
-        coord='data/{prefix}.coord'
-    output:
-        expand('output/{prefix}/grid_{gridsize}/node_splits/split_{split}.coord',
-            split=range(10), allow_missing=True)
-    params:
-        nsplits = lambda wildcards, output: len(output)
-    conda:
-        '../envs/feems.yaml'
-    script:
-        "../scripts/feems_split_nodes.py"
-
-rule feems_leave_node_out:
+rule feems_leave_node_out_split:
     """
     create coord files that do not have locations for samples from each node
     """
@@ -48,7 +30,7 @@ rule feems_leave_node_out:
         sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl',
         coord='data/{prefix}.coord'
     output:
-        directory('output/{prefix}/grid_{gridsize}/leave_node_out')
+        directory('output/{prefix}/feems/grid_{gridsize}/leave_node_out/coord')
     params:
         nsplits = 1e6
     conda:
@@ -56,6 +38,16 @@ rule feems_leave_node_out:
     script:
         "../scripts/feems_split_nodes.py"
 
+rule feems_leave_node_out_fit:
+    input:
+        directory('output/{prefix}/feems/grid_{gridsize}/leave_node_out')
+    output:
+        'output/wolves/feems/leave_node_out_fit_{fit}_{predict}.pkl'
+    conda:
+        '../envs/feems.yaml'
+    script:
+        "../scripts/feems_lno.py"
+        
 rule feems_run_split_nodes:
     input:
         sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl',
@@ -67,14 +59,6 @@ rule feems_run_split_nodes:
     script:
         "../scripts/feems_fit.py"
 
-rule run_feems:
-    input:
-        '/Users/karltayeb/Research/spatial_prediction/feems/docsrc/notebooks/wolf_sp_graph.pkl'
-    output:
-        'output/wolves/feems/leave_node_out_fit_{fit}_{predict}.pkl'
-    conda:
-        '../envs/feems.yaml'
-    script:
-        "../scripts/feems_lno.py"
+
 
 
