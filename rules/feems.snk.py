@@ -43,7 +43,7 @@ rule feems_leave_node_out_fit:
         sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl',
         coord='output/{prefix}/feems/grid_{gridsize}/leave_node_out/coord/{id}.coord'
     output:
-        'output/{prefix}/feems/grid_{gridsize}/leave_node_out/{fit}_{predict}_{reg}/{id}.coord'
+        'output/{prefix}/feems/grid_{gridsize}/leave_node_out/{fit}_{predict}_{reg}/{id}_predlocs.txt'
     conda:
         '../envs/feems.yaml'
     script:
