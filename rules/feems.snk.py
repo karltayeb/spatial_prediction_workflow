@@ -52,9 +52,13 @@ rule feems_leave_node_out_fit:
         "../scripts/feems_fit.py"
 
 
-rule run_feems_popres_250:
+rule run_popres_250_ibd_point_noreg:
     input:
         expand('output/popres/c1global1nfd/feems/grid_250/leave_node_out/ibd_point_noreg/{id}_fit.pkl', id=[str(i).zfill(3) for i in range(297)])
+
+rule run_popres_250_feems_point_noreg:
+    input:
+        expand('output/popres/c1global1nfd/feems/grid_250/leave_node_out/feems_point_noreg/{id}_fit.pkl', id=[str(i).zfill(3) for i in range(297)])
 
 # rule run_feems:
 #     input:
