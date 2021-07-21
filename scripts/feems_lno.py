@@ -1,6 +1,8 @@
 import pickle
 from feems.spatial_prediction import leave_node_out_spatial_prediction
 from glob import glob
+import pandas as pd
+from tqdm import tqdm
 
 
 paths = glob(snakemake.input.coord_dir)
@@ -15,7 +17,7 @@ elif snakemake.wildcards.fit == 'feems':
 else:
     assert(False)
 
-for p in paths:
+for p in tqdm(paths):
     sp_graph = pickle.load(open(snakemake.input.sp_graph, 'rb'))
     coord = pd.read_csv(p, sep='\t', header=None)
 
