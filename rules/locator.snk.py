@@ -40,6 +40,7 @@ rule run_locator_leave_node_out:
     conda:
         '../envs/locator_gpu.yaml'
     shell:
+        "module load cuda/10.1"
         "mkdir -p {output[0]} \n"
         "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {output[0]}"
 
