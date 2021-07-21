@@ -40,6 +40,21 @@ rule feems_split_nodes:
     script:
         "../scripts/feems_split_nodes.py"
 
+rule feems_leave_node_out:
+    """
+    create coord files that do not have locations for samples from each node
+    """
+    input:
+        sp_graph='output/{prefix}/feems/sp_graph_grid_{gridsize}.pkl',
+        coord='data/{prefix}.coord'
+    output:
+        directory('output/{prefix}/leave_node_out/grid_{gridsize}_split_{split}.coord')
+    params:
+        nsplits = 1e6
+    conda:
+        '../envs/feems.yaml'
+    script:
+        "../scripts/feems_split_nodes.py"
 
 rule feems_run_split_nodes:
     input:
