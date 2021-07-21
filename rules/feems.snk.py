@@ -50,14 +50,14 @@ rule feems_leave_node_out_fit:
         "../scripts/feems_lno.py"
 
 
-rule run_feems:
-    input:
-        directory('output/wolves/wolvesadmix/feems/grid_100/leave_node_out/ibd_point'),
-        directory('output/wolves/wolvesadmix/feems/grid_100/leave_node_out/feems_point'),
-        directory('output/popres/c1global1nfd/feems/grid_250/leave_node_out/ibd_point')
-        directory('output/popres/c1global1nfd/feems/grid_250/leave_node_out/feems_point')
-    resources:
-        time='4:0:0'
+# rule run_feems:
+#     input:
+#         directory('output/wolves/wolvesadmix/feems/grid_100/leave_node_out/ibd_point'),
+#         directory('output/wolves/wolvesadmix/feems/grid_100/leave_node_out/feems_point'),
+#         directory('output/popres/c1global1nfd/feems/grid_250/leave_node_out/ibd_point')
+#         directory('output/popres/c1global1nfd/feems/grid_250/leave_node_out/feems_point')
+#     resources:
+#         time='4:0:0'
 
 
 rule feems_run_split_nodes:
