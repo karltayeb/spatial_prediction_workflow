@@ -13,7 +13,7 @@ rule feems_initialize_graph:
         multiext('data/{prefix}', '.bed', '.bim', '.fam', '.coord', '.outer'),
         grid_path = 'data/grids/grid_{gridsize}.shp'
     output:
-        'output/{prefix}/feems/sp_graph_grid_{gridsize}.pkl'
+        'output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl'
     params:
         data_path = 'data/{prefix}',
         translated = get_translated
@@ -28,10 +28,10 @@ rule feems_split_nodes:
     create coord files that do not have locations for samples from same node
     """
     input:
-        sp_graph='output/{prefix}/feems/sp_graph_grid_{gridsize}.pkl',
+        sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl',
         coord='data/{prefix}.coord'
     output:
-        expand('output/{prefix}/node_splits/grid_{gridsize}_split_{split}.coord',
+        expand('output/{prefix}/grid_{gridsize}/node_splits/split_{split}.coord',
             split=range(10), allow_missing=True)
     params:
         nsplits = lambda wildcards, output: len(output)
@@ -45,10 +45,10 @@ rule feems_leave_node_out:
     create coord files that do not have locations for samples from each node
     """
     input:
-        sp_graph='output/{prefix}/feems/sp_graph_grid_{gridsize}.pkl',
+        sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl',
         coord='data/{prefix}.coord'
     output:
-        directory('output/{prefix}/leave_node_out/grid_{gridsize}_split_{split}.coord')
+        directory('output/{prefix}/grid_{gridsize}/leave_node_out')
     params:
         nsplits = 1e6
     conda:
@@ -58,8 +58,8 @@ rule feems_leave_node_out:
 
 rule feems_run_split_nodes:
     input:
-        sp_graph='output/{prefix}/feems/sp_graph_grid_{gridsize}.pkl',
-        coord='output/{prefix}/node_splits/grid_{gridsize}_split_{split}.coord'
+        sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl',
+        coord='output/{prefix}/grid_{gridsize}/node_splits/grid_{gridsize}_split_{split}.coord'
     output:
         'output/{prefix}/feems/node_splits/feems_{fit}_{predict}_grid_{gridsize}_split_{split}.pkl'
     conda:
