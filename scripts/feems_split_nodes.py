@@ -27,5 +27,6 @@ node_splits = np.array_split(nodes, nsplits)
 
 for i, node_split in enumerate(node_splits):
     mask = np.concatenate([node2sample.get(node) for node in node_split])
-    output = '{}/{}.coord'.format(snakemake.output[0], i)
+    output = '{}/{}.coord'.format(
+        snakemake.output[0], str(i).zfill(3))
     mask_meta(meta, mask).to_csv(output, sep='\t', index=None, header=False)
