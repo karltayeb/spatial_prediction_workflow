@@ -46,6 +46,8 @@ rule feems_leave_node_out_fit:
         'output/{prefix}/feems/grid_{gridsize}/leave_node_out/{fit}_{predict}_{reg}/{id}_predlocs.txt'
     conda:
         '../envs/feems.yaml'
+    resources:
+        mem=4000
     script:
         "../scripts/feems_fit.py"
 
