@@ -40,8 +40,8 @@ rule run_locator_leave_node_out:
     conda:
         '../envs/locator_gpu.yaml'
     resources:
-        partition='gpu2'
-        gres='gpu:1'
+        partition='gpu2',
+        gres='gpu:1',
         ntasks=1
     shell:
         "module load cuda/10.1"
