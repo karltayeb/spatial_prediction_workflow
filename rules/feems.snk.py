@@ -41,14 +41,18 @@ rule feems_leave_node_out_split:
 rule feems_leave_node_out_fit:
     input:
         sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl',
-        coord_dir=directory('output/{prefix}/feems/grid_{gridsize}/leave_node_out/coord')
+        coord='output/{prefix}/feems/grid_{gridsize}/leave_node_out/coord/{id}.coord'
     output:
-        directory('output/{prefix}/feems/grid_{gridsize}/leave_node_out/{fit}_{predict}')
+        'output/{prefix}/feems/grid_{gridsize}/leave_node_out/{fit}_{predict}_{reg}/{id}.coord'
     conda:
         '../envs/feems.yaml'
     script:
-        "../scripts/feems_lno.py"
+        "../scripts/feems_fit.py"
 
+
+rule run_feems_popres_250:
+    input:
+        expand('output/popres/c1global1nfd/feems/grid_250/leave_node_out/{fit}_{predict}_{reg}/{id}_predlocs.txt', id=[str(i).zfill(3) for i in range(297)], allow_missing=True)
 
 # rule run_feems:
 #     input:
