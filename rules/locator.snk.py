@@ -42,6 +42,8 @@ rule run_locator_leave_node_out:
         outpath = lambda wildcard, output: output[0][:-len('_predlocs.txt')]
     conda:
         '../envs/locator_gpu.yaml'
+    group:
+        ''
     resources:
         partition='gpu2',
         gres='gpu:1',
@@ -51,6 +53,10 @@ rule run_locator_leave_node_out:
         #"mkdir -p {output[0]} \n"
         "python3 {config[locator_path]} --vcf {input.vcf} --sample_data {input.loc} --out {params.outpath} --keep_weights"
 
+
+rule run_locator_popres_250:
+    input:
+        expand('output/popres/c1global1nfd/locator/grid_250/leave_node_out/fit/{id}_predlocs.txt', id=range(297))
 
 rule prep_coord_node_split:
     """
