@@ -34,8 +34,9 @@ coord = pd.read_csv(snakemake.input.coord, sep='\t', header=None)
 
 if 'alpha' in snakemake.wildcards.reg:
     alpha = float(snakemake.wildcards.reg.split('-')[-1])
+    print('regularizing node frequencies: alpha={}'.format(alpha))
     regularize_frequencies(sp_graph, alpha)
-    
+
 results = predict_held_out_nodes(
         sp_graph, coord,
         predict_type=snakemake.wildcards.predict,
