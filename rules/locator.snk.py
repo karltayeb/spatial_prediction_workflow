@@ -58,6 +58,9 @@ rule run_locator_popres_250:
     input:
         expand('output/popres/c1global1nfd/locator/grid_250/leave_node_out/fit/{id}_predlocs.txt', id=[str(i).zfill(3) for i in range(297)])
 
+rule run_locator_wolves_100:
+    input:
+        expand('output/wolves/wolvesadmix/locator/grid_100/leave_node_out/fit/{id}_predlocs.txt', id=[str(i).zfill(3) for i in range(94)])
 rule prep_coord_node_split:
     """
     just copy popres data to data repo
