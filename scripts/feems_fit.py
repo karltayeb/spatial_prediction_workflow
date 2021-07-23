@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 from copy import deepcopy
 
-
 from feems.objective import Objective, comp_mats
 from feems.spatial_graph import query_node_attributes
 from feems.cross_validation import train_test_split
@@ -17,7 +16,6 @@ elif snakemake.wildcards.fit == 'feems':
     fit = True
 else:
     assert(False)
-
 
 predict_type = snakemake.wildcards.predict
 fit_feems = fit
@@ -46,11 +44,6 @@ def regularize_frequencies(self, alpha):
 sp_graph = pickle.load(open(snakemake.input.sp_graph, 'rb'))
 coord = pd.read_csv(snakemake.input.coord, sep='\t', header=None)
 
-if 'alpha' in snakemake.wildcards.reg:
-    alpha = float(snakemake.wildcards.reg.split('-')[-1])
-    print('regularizing node frequencies: alpha={}'.format(alpha))
-    sp_graph = regularize_frequencies(sp_graph, alpha)
-
 sample_idx = query_node_attributes(sp_graph, 'sample_idx')
 permuted_idx = query_node_attributes(sp_graph, "permuted_idx")
 sp_graph.fit_null_model()
@@ -63,6 +56,10 @@ n = sp_graph.sample_pos.shape[0]
 split = ~np.isnan(coord.iloc[:, 0])
 sp_graph_train, sp_graph_test = train_test_split(sp_graph, split)
 
+if 'alpha' in snakemake.wildcards.reg:
+    alpha = float(snakemake.wildcards.reg.split('-')[-1])
+    print('regularizing node frequencies: alpha={}'.format(alpha))
+    sp_graph_train = regularize_frequencies(sp_graph_train, alpha)
 
 test_sample_idx = query_node_attributes(sp_graph_test, 'sample_idx')
 test_node2sample = {i: test_sample_idx[i]
