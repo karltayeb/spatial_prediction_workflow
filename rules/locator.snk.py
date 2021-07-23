@@ -23,7 +23,10 @@ rule prep_coord_for_locator:
         prefix = wildcards.prefix
         grid = wildcards.gridsize
 
+        print('making directory...')
         os.makedirs(output[0], exist_ok=True)
+
+        print('loading coords...')
         lno_coord_paths = np.sort(glob(input.coord_dir + '/*'))
         lno_coords = [pd.read_csv(f, sep='\t', header=None) for f in lno_coord_paths]
 
@@ -31,7 +34,7 @@ rule prep_coord_for_locator:
 
         for i in range(len(lno_coord_paths)):
             p = lno_coord_paths[i]
-            p_out = '../output/{prefix}/locator/grid_{grid}/leave_node_out/coord/'.format(prefix=prefix, grid=grid)
+            p_out = '../output/{prefix}/locator/grid_{grid}/leave_node_out/coord'.format(prefix=prefix, grid=grid)
             p_out = '{}/{}'.format(p_out, p.split('/')[-1])
             fam['sampleID']=fam.apply(lambda x:'%s_%s' % (x[0],x[1]),axis=1)
             meta = pd.concat([lno_coords[i], fam['sampleID']], axis=1).iloc[:, :4]
