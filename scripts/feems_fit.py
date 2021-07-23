@@ -46,14 +46,6 @@ def regularize_frequencies(self, alpha):
 sp_graph = pickle.load(open(snakemake.input.sp_graph, 'rb'))
 coord = pd.read_csv(snakemake.input.coord, sep='\t', header=None)
 
-print(sp_graph.S[0])
-if 'alpha' in snakemake.wildcards.reg:
-    alpha = float(snakemake.wildcards.reg.split('-')[-1])
-    print('regularizing node frequencies: alpha={}'.format(alpha))
-    sp_graph = regularize_frequencies(sp_graph, alpha)
-
-print(sp_graph.S[0])
-
 
 sample_idx = query_node_attributes(sp_graph, 'sample_idx')
 permuted_idx = query_node_attributes(sp_graph, "permuted_idx")
@@ -67,6 +59,10 @@ n = sp_graph.sample_pos.shape[0]
 split = ~np.isnan(coord.iloc[:, 0])
 sp_graph_train, sp_graph_test = train_test_split(sp_graph, split)
 
+if 'alpha' in snakemake.wildcards.reg:
+    alpha = float(snakemake.wildcards.reg.split('-')[-1])
+    print('regularizing node frequencies: alpha={}'.format(alpha))
+    sp_graph_train = regularize_frequencies(sp_graph_train, alpha)
 
 test_sample_idx = query_node_attributes(sp_graph_test, 'sample_idx')
 test_node2sample = {i: test_sample_idx[i]
