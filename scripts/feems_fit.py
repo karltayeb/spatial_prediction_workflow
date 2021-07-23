@@ -1,8 +1,15 @@
 import pickle
-from feems.spatial_prediction import predict_held_out_nodes
 import pandas as pd
 import numpy as np
 from copy import deepcopy
+
+
+from feems.objective import Objective, comp_mats
+from feems.spatial_graph import query_node_attributes
+from feems.cross_validation import train_test_split
+#from feems.spatial_prediction import predict_held_out_nodes
+
+
 # check valid fit wildcard
 if snakemake.wildcards.fit == 'ibd':
     fit = False
