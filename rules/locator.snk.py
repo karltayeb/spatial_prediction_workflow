@@ -34,13 +34,13 @@ rule prep_coord_for_locator:
 
         for i in range(len(lno_coord_paths)):
             p = lno_coord_paths[i]
-            p_out = '../output/{prefix}/locator/grid_{grid}/leave_node_out/coord'.format(prefix=prefix, grid=grid)
+            p_out = 'output/{prefix}/locator/grid_{grid}/leave_node_out/coord'.format(prefix=prefix, grid=grid)
             p_out = '{}/{}'.format(p_out, p.split('/')[-1])
             fam['sampleID']=fam.apply(lambda x:'%s_%s' % (x[0],x[1]),axis=1)
             meta = pd.concat([lno_coords[i], fam['sampleID']], axis=1).iloc[:, :4]
             meta.columns = ['x', 'y', 'sampleID']
 
-            print('saving to {}'.format(p))
+            print('saving to {}'.format(p_out))
             print(meta.head())
             meta.to_csv(p_out, sep='\t', index=None)
 
