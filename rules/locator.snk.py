@@ -20,7 +20,7 @@ rule prep_coord_for_locator:
         import tqdm
 
         prefix = wildcards.prefix
-        grid = wildcards.grid
+        grid = wildcards.gridsize
 
         os.makedirs(output[0], exist_ok=True)
         lno_coord_paths = np.sort(glob(input.coord_dir + '/*'))
