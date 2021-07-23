@@ -62,7 +62,7 @@ rule feems_fit_full:
     resources:
         mem=4000
     script:
-        "../scripts/feems_fit_full.py"
+        "../scripts/fit_feems_full.py"
 
 
 rule run_popres_250_ibd_point_noreg:
