@@ -7,7 +7,7 @@ from copy import deepcopy
 from feems.objective import Objective, comp_mats
 from feems.spatial_graph import query_node_attributes
 from feems.cross_validation import train_test_split
-#from feems.spatial_prediction import predict_held_out_nodes
+from feems.spatial_prediction import *
 
 
 # check valid fit wildcard
