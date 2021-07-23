@@ -12,14 +12,12 @@ else:
     assert(False)
 
 
-def regularize_frequencies(self, alpha=0):
+def regularize_frequencies(self, alpha):
     """
     update attributes frequencies and S in self
     compute weighted average of global freuqencies
     and and observed node frequencies
     """
-    alpha = 0.5
-
     n = self.n_samples_per_obs_node_permuted
     mu = self.mu
     scale = np.sqrt(mu * (1-mu))
