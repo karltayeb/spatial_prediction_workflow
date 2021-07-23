@@ -1,5 +1,6 @@
 import pickle
 import numpy as np
+import pandas as pd
 from copy import deepcopy
 
 def regularize_frequencies(self, alpha):
