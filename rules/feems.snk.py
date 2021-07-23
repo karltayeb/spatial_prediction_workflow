@@ -52,6 +52,19 @@ rule feems_leave_node_out_fit:
         "../scripts/feems_fit.py"
 
 
+rule feems_fit_full:
+    input:
+        sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl'
+    output:
+        'output/{prefix}/feems/grid_{gridsize}/{fit}_{reg}/fit.pkl'
+    conda:
+        '../envs/feems.yaml'
+    resources:
+        mem=4000
+    script:
+        "../scripts/feems_fit_full.py"
+
+
 rule run_popres_250_ibd_point_noreg:
     input:
         expand('output/popres/c1global1nfd/feems/grid_250/leave_node_out/ibd_point_noreg/{id}_fit.pkl', id=[str(i).zfill(3) for i in range(297)])
