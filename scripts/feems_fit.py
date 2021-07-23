@@ -46,14 +46,10 @@ def regularize_frequencies(self, alpha):
 sp_graph = pickle.load(open(snakemake.input.sp_graph, 'rb'))
 coord = pd.read_csv(snakemake.input.coord, sep='\t', header=None)
 
-print(sp_graph.S[0])
 if 'alpha' in snakemake.wildcards.reg:
     alpha = float(snakemake.wildcards.reg.split('-')[-1])
     print('regularizing node frequencies: alpha={}'.format(alpha))
     sp_graph = regularize_frequencies(sp_graph, alpha)
-
-print(sp_graph.S[0])
-
 
 sample_idx = query_node_attributes(sp_graph, 'sample_idx')
 permuted_idx = query_node_attributes(sp_graph, "permuted_idx")
@@ -80,6 +76,7 @@ if fit_feems:
     # sp_graph_train.fit(**fit_kwargs)
     sp_graph_train.fit(lamb=2., verbose=True)
 
+print(sp_graph_train.w[:10])
 
 # get genotypes of test deme
 g = sp_graph.genotypes

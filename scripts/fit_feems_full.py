@@ -32,10 +32,8 @@ elif snakemake.wildcards.fit == 'feems':
 else:
     assert(False)
 
-sp_graph = pickle.load(open(snakemake.input[0], 'rb'))
-
 sp_graph = pickle.load(open(snakemake.input.sp_graph, 'rb'))
-coord = pd.read_csv(snakemake.input.coord, sep='\t', header=None)
+sp_graph.factor = None
 
 if 'alpha' in snakemake.wildcards.reg:
     alpha = float(snakemake.wildcards.reg.split('-')[-1])
@@ -44,4 +42,5 @@ if 'alpha' in snakemake.wildcards.reg:
 
 sp_graph.fit_null_model()
 sp_graph.fit(lamb=2.0)
+sp_graph.factor = None
 pickle.dump(sp_graph, open(snakemake.output[0], 'wb'))
