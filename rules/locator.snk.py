@@ -39,6 +39,9 @@ rule prep_coord_for_locator:
             fam['sampleID']=fam.apply(lambda x:'%s_%s' % (x[0],x[1]),axis=1)
             meta = pd.concat([lno_coords[i], fam['sampleID']], axis=1).iloc[:, :4]
             meta.columns = ['x', 'y', 'sampleID']
+
+            print('saving to {}'.format(p))
+            print(meta.head())
             meta.to_csv(p_out, sep='\t', index=None)
 
 rule run_locator_leave_node_out:
