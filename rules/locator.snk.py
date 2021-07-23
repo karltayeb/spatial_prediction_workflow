@@ -19,9 +19,9 @@ rule prep_coord_for_locator:
         from glob import glob
         import tqdm
 
-        prefix = snakemake.wildcards.prefix
-        grid = snakemake.wildcards.grid
-        
+        prefix = wildcards.prefix
+        grid = wildcards.grid
+
         os.makedirs(output[0], exist_ok=True)
         lno_coord_paths = np.sort(glob(input.coord_dir + '/*'))
         lno_coords = [pd.read_csv(f, sep='\t', header=None) for f in lno_coord_paths]
