@@ -19,18 +19,23 @@ rule prep_coord_for_locator:
         from glob import glob
         import tqdm
 
+        prefix = snakemake.wildcards.prefix
+        grid = snakemake.wildcards.grid
+        
         os.makedirs(output[0], exist_ok=True)
-        paths = glob(input.coord_dir + '/*')
+        lno_coord_paths = np.sort(glob(input.coord_dir + '/*'))
+        lno_coords = [pd.read_csv(f, sep='\t', header=None) for f in lno_coord_paths]
 
-        for p in paths:
-            p_out = '{}/{}'.format(output[0], p.split('/')[-1])
-            coord = pd.read_csv(p, index_col=False, header=None, sep='\s')
-            fam = pd.read_csv(input[0], index_col=False, header=None, sep='\s')
+        fam = pd.read_csv(input.fam, index_col=False, header=None, sep='\s')
+
+        for i in range(len(lno_coord_paths)):
+            p = lno_coord_paths[i]
+            p_out = '../output/{prefix}/locator/grid_{grid}/leave_node_out/coord/'.format(prefix=prefix, grid=grid)
+            p_out = '{}/{}'.format(p_out, p.split('/')[-1])
             fam['sampleID']=fam.apply(lambda x:'%s_%s' % (x[0],x[1]),axis=1)
-            meta = pd.concat([coord, fam['sampleID']], axis=1).iloc[:, :4]
+            meta = pd.concat([lno_coords[i], fam['sampleID']], axis=1).iloc[:, :4]
             meta.columns = ['x', 'y', 'sampleID']
             meta.to_csv(p_out, sep='\t', index=None)
-
 
 rule run_locator_leave_node_out:
     input:
