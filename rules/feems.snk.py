@@ -22,6 +22,19 @@ rule feems_initialize_graph:
     script:
         '../scripts/feems_init_sp_graph.py'
 
+rule feems_initialize_titration:
+    input:
+        sp_graph_in = 'output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl'
+    output:
+        sp_graph_out = 'output/{prefix}/titration/{n}/{idx}/feems/grid_{gridsize}/sp_graph.pkl'
+    params:
+        data_path = 'data/{prefix}',
+        n = int('{n}')
+    conda:
+        '../envs/feems.yaml'
+    script:
+        '../scripts/feems_init_titration.py'
+
 rule feems_leave_node_out_split:
     """
     create coord files that do not have locations for samples from each node
