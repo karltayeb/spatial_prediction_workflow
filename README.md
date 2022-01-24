@@ -1,7 +1,11 @@
-# spatial_prediction_workflow
+# Spatial Prediction workflow
 
 Snakemake workflow for running FEEMS, and comparing it to other methods (IBD-FEEMS which is FEEMS null model, Locator a neural network based approach)
 Attempted to also include SPASIBA in the pipeline but could not get it working.
+
+Be sure to use Karl's fork of FEEMS, which includes spatial prediction functions: https://github.com/karltayeb/feems
+
+## Notebooks
 
 Check out `notebooks/peter2020.ipynb` to see the comparative performance of FEEMS, IBD-FEEMS, and Locator on Peter 2020 Data
 Run `notebooks/peter2020_assignment_uncertainty.ipynb` for interactive plots to explore uncertainty in FEEMS assignments
