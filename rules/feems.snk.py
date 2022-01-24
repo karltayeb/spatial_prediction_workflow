@@ -65,6 +65,19 @@ rule feems_leave_node_out_fit:
         "../scripts/feems_fit.py"
 
 
+rule feems_leave_node_out_fit:
+    input:
+        sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl',
+        coord='output/{prefix}/feems/grid_{gridsize}/leave_node_out/coord/{id}.coord'
+    output:
+        'output/{prefix}/feems/grid_{gridsize}/leave_node_out/titration/{n_snps}/{fit}_{predict}_{reg}/{id}_fit.pkl'
+    conda:
+        '../envs/feems.yaml'
+    resources:
+        mem=4000
+    script:
+        "../scripts/feems_fit_titration.py"
+
 rule feems_fit_full:
     input:
         sp_graph='output/{prefix}/feems/grid_{gridsize}/sp_graph.pkl'
